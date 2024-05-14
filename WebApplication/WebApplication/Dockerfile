@@ -8,10 +8,9 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["WebApplication/WebApplication.csproj", "WebApplication/"]
-RUN dotnet restore "./WebApplication/WebApplication.csproj"
+COPY ["./WebApplication.csproj", "./WebApplication.csproj"]
+RUN dotnet restore "./WebApplication.csproj"
 COPY . .
-WORKDIR "/src/WebApplication"
 RUN dotnet build "./WebApplication.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
@@ -27,12 +26,12 @@ ENTRYPOINT ["dotnet", "WebApplication.dll"]
 #FROM mcr.microsoft.com/dotnet/sdk:5.0
 #LABEL author="Guilherme"
 #EXPOSE 80
-##Configuração para um ambiente do tipo desenvolvimento 
-##No contexto de uma aplicação .NET Core, 
-##a variável de ambiente ASPNETCORE_ENVIRONMENT é 
-##frequentemente utilizada para configurar o ambiente de execução da aplicação. 
-##Por exemplo, a aplicação .NET Core pode ler essa variável para determinar se está executando em um ambiente de desenvolvimento, 
-##teste ou produção, e ajustar sua configuração de acordo.
+##Configuraï¿½ï¿½o para um ambiente do tipo desenvolvimento 
+##No contexto de uma aplicaï¿½ï¿½o .NET Core, 
+##a variï¿½vel de ambiente ASPNETCORE_ENVIRONMENT ï¿½ 
+##frequentemente utilizada para configurar o ambiente de execuï¿½ï¿½o da aplicaï¿½ï¿½o. 
+##Por exemplo, a aplicaï¿½ï¿½o .NET Core pode ler essa variï¿½vel para determinar se estï¿½ executando em um ambiente de desenvolvimento, 
+##teste ou produï¿½ï¿½o, e ajustar sua configuraï¿½ï¿½o de acordo.
 #
 #ENV ASPNETCORE_ENVIRONMENT="development"
 #
@@ -40,7 +39,7 @@ ENTRYPOINT ["dotnet", "WebApplication.dll"]
 #COPY . .
 #
 ##Restaura os pacotes NuGet, por isso a flag '-c'
-##Isso só é executado no momento de run
+##Isso sï¿½ ï¿½ executado no momento de run
 #CMD ["/bin/bash", "-c", "dotnet restore && dotnet run"]   
 
 #
