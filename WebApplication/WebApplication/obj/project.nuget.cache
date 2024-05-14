@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Lyr2VK5Uhn+YhUJBqi/8QCep8mpWwW+ZYcU79E1OKU2rOUB7tFSkRs6MlmCxam+5Oe0E7gt1pfFIqRKOn0nXWQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Guilherme Neves da S\\Desktop\\trilha_de_conhecimento\\WebApplication\\WebApplication\\WebApplication.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Guilherme Neves da S\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.6\\microsoft.visualstudio.azure.containers.tools.targets.1.19.6.nupkg.sha512"
+  ],
+  "logs": []
+}
