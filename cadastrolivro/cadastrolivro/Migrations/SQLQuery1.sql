@@ -1,0 +1,38 @@
+
+CREATE TABLE ROLES (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL UNIQUE
+);
+CREATE TABLE USUARIOS (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    role_id INT,
+    FOREIGN KEY (role_id) REFERENCES ROLES(id)
+);
+
+
+
+CREATE TABLE AUTORES (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE LIVROS (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    titulo VARCHAR(200) NOT NULL,
+    autor_id INT,
+    preco DECIMAL(10, 2) NOT NULL,
+    estoque INT NOT NULL,
+    FOREIGN KEY (autor_id) REFERENCES AUTORES(id)
+);
+
+CREATE TABLE COMPRAS (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    usuario_id INT,
+    livro_id INT,
+    data_compra DATETIME,
+    quantidade INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES USUARIOS(id),
+    FOREIGN KEY (livro_id) REFERENCES LIVROS(id)
+);
