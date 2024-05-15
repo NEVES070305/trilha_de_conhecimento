@@ -90,6 +90,49 @@ END
 
 O padrão Repository atua como uma ponte entre o domínio da aplicação e a camada de acesso a dados, proporcionando uma maneira de manipular coleções de objetos de domínio de forma orientada a objetos. Ele permite isolar a lógica de acesso aos dados, separando-a das camadas de apresentação e de negócios da aplicação.
 
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+public class CustomerRepository
+{
+    private readonly string _connectionString;
+
+    public CustomerRepository(string connectionString)
+    {
+        _connectionString = connectionString;
+    }
+
+    public DataTable GetAllCustomers()
+    {
+        using (var connection = new SqlConnection(_connectionString))
+        {
+            try
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(nome_da_procedure, connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                if (parameters != null)
+                {
+                    command.Parameters.AddRange(parameters);
+                }
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                adapter.Fill(dataSet);
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error retrieving data: " + ex.Message);
+                throw;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return dataset;
+        }
+    }
+}
 Um repositório é essencialmente uma coleção de objetos de domínio em memória, e, com base nisso o padrão Repository permite realizar o isolamento entre a camada de acesso a dados (DAL) de sua aplicação e sua camada de apresentação (UI) e camada de negócios (BLL).
 
 Ao utilizar o padrão Repository, você pode realizar a persistência e a separação de interesses em seu código de acesso a dados visto que ele encapsula a lógica necessária para persistir os objetos do seu domínio na sua fonte de armazenamento de dados.
@@ -97,58 +140,7 @@ Ao utilizar o padrão Repository, você pode realizar a persistência e a separa
 ### Exemplo de Uso
 
 ```csharp
-// Interface do Repositório
-public interface ICustomerRepository
-{
-    Customer GetCustomerById(int customerId);
-    IEnumerable<Customer> GetAllCustomers();
-    void AddCustomer(Customer customer);
-    void UpdateCustomer(Customer customer);
-    void DeleteCustomer(int customerId);
-}
 
-// Implementação do Repositório
-public class CustomerRepository : ICustomerRepository
-{
-    private readonly DbContext _context;
-
-    public CustomerRepository(DbContext context)
-    {
-        _context = context;
-    }
-
-    public Customer GetCustomerById(int customerId)
-    {
-        return _context.Customers.Find(customerId);
-    }
-
-    public IEnumerable<Customer> GetAllCustomers()
-    {
-        return _context.Customers.ToList();
-    }
-
-    public void AddCustomer(Customer customer)
-    {
-        _context.Customers.Add(customer);
-        _context.SaveChanges();
-    }
-
-    public void UpdateCustomer(Customer customer)
-    {
-        _context.Customers.Update(customer);
-        _context.SaveChanges();
-    }
-
-    public void DeleteCustomer(int customerId)
-    {
-        var customer = _context.Customers.Find(customerId);
-        if (customer != null)
-        {
-            _context.Customers.Remove(customer);
-            _context.SaveChanges();
-        }
-    }
-}
 ```
 
 ### Benefícios do Padrão Repository
