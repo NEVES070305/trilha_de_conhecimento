@@ -156,3 +156,5 @@ Em suma, o padrão Repository permite desacoplar o modelo de domínio do código
 
 ## Referências
 - [.NET - Apresentando o padrão de projeto Repository](https://www.macoratti.net/11/10/net_pr1.htm)
+- [REST API's RESTFul do 0 à Azure com ASP.NET Core 5 e Docker] (https://www.udemy.com/course/restful-apis-do-0-a-nuvem-com-aspnet-core-e-docker/learn/lecture/22577532?start=30#overview), seções: 1,2,5, 6, 7, 8, 9, 10, 11, 17, 19, 22 e 23
+- [Curso Completo C#: Do Básico ao Avançado!] (https://www.udemy.com/course/curso-c-sharp/learn/lecture/10856538?start=0#overview)
