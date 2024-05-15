@@ -47,3 +47,5 @@ A Microsoft oferece diversas certificações para desenvolvedores .NET, ajudando
 ## Conclusão
 
 O .NET evoluiu significativamente desde sua criação, passando de uma plataforma exclusiva para Windows para uma solução de desenvolvimento globalmente acessível. Com o .NET Core e a unificação sob o .NET 5 e além, os desenvolvedores agora têm a liberdade de criar aplicações de alto desempenho para uma ampla variedade de sistemas operacionais e dispositivos. A evolução contínua da plataforma .NET, juntamente com o suporte da Microsoft e uma ativa comunidade de desenvolvedores, assegura seu lugar como uma das principais escolhas para o desenvolvimento de software moderno.
+
+## Referências - [.NET: apresentando a plataforma de desenvolvimento da Microsoft](https://www.alura.com.br/artigos/net-framework-dotnet#:~:text=NET%3F-,O%20.,como%20Windows%2C%20macOS%20e%20Linux) - [.NET: Crie. Teste. Implante.](https://dotnet.microsoft.com/pt-br/)
