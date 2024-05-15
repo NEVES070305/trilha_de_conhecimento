@@ -158,3 +158,16 @@ Em suma, o padrão Repository permite desacoplar o modelo de domínio do código
 - [.NET - Apresentando o padrão de projeto Repository](https://www.macoratti.net/11/10/net_pr1.htm)
 - [REST API's RESTFul do 0 à Azure com ASP.NET Core 5 e Docker] (https://www.udemy.com/course/restful-apis-do-0-a-nuvem-com-aspnet-core-e-docker/learn/lecture/22577532?start=30#overview), seções: 1,2,5, 6, 7, 8, 9, 10, 11, 17, 19, 22 e 23
 - [Curso Completo C#: Do Básico ao Avançado!] (https://www.udemy.com/course/curso-c-sharp/learn/lecture/10856538?start=0#overview)
+
+# Docker 
+Docker é uma plataforma de código aberto que simplifica o desenvolvimento, a distribuição e a execução de aplicativos em contêineres. Contêineres são unidades leves e autossuficientes que podem ser implantadas consistentemente em qualquer ambiente, desde o desenvolvimento até a produção. Essa abordagem resolve o problema comum do "funciona na minha máquina" ao garantir que o ambiente de execução do aplicativo seja o mesmo em todos os lugares.
+
+Uma das principais vantagens do Docker é o uso de Dockerfiles, que são arquivos de texto que contêm instruções para construir imagens de contêineres personalizadas. É como fornecer uma receita para criar um ambiente de execução específico para o seu aplicativo. Essas imagens contêm todos os componentes necessários para o aplicativo funcionar corretamente, incluindo código, dependências, configurações e ambiente de tempo de execução.
+
+Por exemplo, se você estiver trabalhando com ASP.NET Core, a Microsoft fornece imagens prontas para uso que incluem tudo o que você precisa para desenvolver e executar aplicativos .NET Core em contêineres Docker. Você pode usar essas imagens como base e personalizá-las conforme necessário, adicionando seu código e configurando o ambiente de acordo com os requisitos do seu aplicativo.
+
+Depois de criar sua imagem personalizada usando um Dockerfile, você pode usar o Docker CLI para construir a imagem e criar um contêiner a partir dela. O Docker CLI oferece uma variedade de comandos para gerenciar contêineres, como executar, parar, iniciar e remover. Você também pode usar Docker Compose, uma ferramenta que permite definir e executar aplicativos Docker compostos por vários contêineres.
+
+Uma vez que seu aplicativo esteja em um contêiner Docker, você pode implantá-lo em qualquer lugar onde o Docker Engine esteja em execução, seja em sua máquina local, em um servidor local ou na nuvem. Isso oferece uma grande flexibilidade e portabilidade para seus aplicativos, permitindo que você dimensione facilmente de acordo com as demandas do seu negócio.
+
+Em resumo, o Docker é uma ferramenta poderosa para simplificar o processo de desenvolvimento, distribuição e implantação de aplicativos, fornecendo uma maneira consistente e confiável de executar seus aplicativos em qualquer lugar. Com o uso de Dockerfiles e imagens personalizadas, você pode garantir que seu aplicativo funcione de maneira confiável em qualquer ambiente, eliminando o problema do "funciona na minha máquina".
