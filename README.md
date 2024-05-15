@@ -51,3 +51,115 @@ O .NET evoluiu significativamente desde sua criação, passando de uma plataform
 ## Referências 
 - [.NET: apresentando a plataforma de desenvolvimento da Microsoft](https://www.alura.com.br/artigos/net-framework-dotnet#:~:text=NET%3F-,O%20.,como%20Windows%2C%20macOS%20e%20Linux) 
 - [.NET: Crie. Teste. Implante.](https://dotnet.microsoft.com/pt-br/)
+
+
+# Procedures e o Padrão de Projeto Repositório
+
+## Introdução
+
+No desenvolvimento de software, a organização e a manutenção do código são aspectos cruciais para a eficiência e a qualidade do projeto. Duas abordagens comuns que ajudam a alcançar esses objetivos são o uso de procedures (procedimentos) e o padrão de projeto repositório. Ambos têm seu lugar em diferentes contextos e podem ser usados de forma complementar para melhorar a estrutura e a gestão do código.
+
+## Procedures
+
+### O que são Procedures?
+
+Procedures, ou procedimentos armazenados, são sub-rotinas disponíveis em sistemas de gerenciamento de banco de dados (SGBD). Eles permitem que um conjunto de instruções SQL seja armazenado e executado repetidamente sem a necessidade de reescrever o código SQL. Procedures podem receber parâmetros de entrada e saída, permitindo a execução de lógica complexa diretamente no banco de dados.
+
+### Benefícios das Procedures
+
+1. **Reutilização de Código**: Procedures permitem que trechos de código SQL sejam reutilizados em várias partes da aplicação, promovendo a manutenção e a consistência.
+2. **Desempenho**: Executar lógica diretamente no banco de dados pode reduzir a sobrecarga de rede e melhorar o desempenho, especialmente em operações complexas ou frequentes.
+3. **Segurança**: Procedures podem encapsular a lógica do banco de dados, permitindo controle de acesso granular e evitando a exposição direta das tabelas de banco de dados.
+
+### Exemplos de Uso
+
+- **Validações e Regras de Negócio**: Implementação de validações e lógica de negócios complexa.
+- **Operações de CRUD**: Procedimentos para criar, ler, atualizar e deletar registros de forma eficiente.
+- **Automatização de Tarefas**: Tarefas agendadas ou automáticas, como backups e sincronizações.
+
+```sql
+CREATE PROCEDURE GetCustomerOrders
+    @CustomerId INT
+AS
+BEGIN
+    SELECT * FROM Orders WHERE CustomerId = @CustomerId
+END
+```
+
+### O que é o Padrão Repository?
+
+O padrão Repository atua como uma ponte entre o domínio da aplicação e a camada de acesso a dados, proporcionando uma maneira de manipular coleções de objetos de domínio de forma orientada a objetos. Ele permite isolar a lógica de acesso aos dados, separando-a das camadas de apresentação e de negócios da aplicação.
+
+Um repositório é essencialmente uma coleção de objetos de domínio em memória, e, com base nisso o padrão Repository permite realizar o isolamento entre a camada de acesso a dados (DAL) de sua aplicação e sua camada de apresentação (UI) e camada de negócios (BLL).
+
+Ao utilizar o padrão Repository, você pode realizar a persistência e a separação de interesses em seu código de acesso a dados visto que ele encapsula a lógica necessária para persistir os objetos do seu domínio na sua fonte de armazenamento de dados.
+
+### Exemplo de Uso
+
+```csharp
+// Interface do Repositório
+public interface ICustomerRepository
+{
+    Customer GetCustomerById(int customerId);
+    IEnumerable<Customer> GetAllCustomers();
+    void AddCustomer(Customer customer);
+    void UpdateCustomer(Customer customer);
+    void DeleteCustomer(int customerId);
+}
+
+// Implementação do Repositório
+public class CustomerRepository : ICustomerRepository
+{
+    private readonly DbContext _context;
+
+    public CustomerRepository(DbContext context)
+    {
+        _context = context;
+    }
+
+    public Customer GetCustomerById(int customerId)
+    {
+        return _context.Customers.Find(customerId);
+    }
+
+    public IEnumerable<Customer> GetAllCustomers()
+    {
+        return _context.Customers.ToList();
+    }
+
+    public void AddCustomer(Customer customer)
+    {
+        _context.Customers.Add(customer);
+        _context.SaveChanges();
+    }
+
+    public void UpdateCustomer(Customer customer)
+    {
+        _context.Customers.Update(customer);
+        _context.SaveChanges();
+    }
+
+    public void DeleteCustomer(int customerId)
+    {
+        var customer = _context.Customers.Find(customerId);
+        if (customer != null)
+        {
+            _context.Customers.Remove(customer);
+            _context.SaveChanges();
+        }
+    }
+}
+```
+
+### Benefícios do Padrão Repository
+
+- **Desacoplamento**: O padrão Repository permite desacoplar o modelo de domínio do código de acesso a dados, facilitando a manutenção, promovendo a reutilização de código e proporcionando uma estrutura mais organizada para a aplicação.
+- **Centralização da Lógica de Persistência**: Ele centraliza a lógica de persistência de objetos de domínio em um único lugar, encapsulando as operações necessárias para interagir com a fonte de dados.
+- **Flexibilidade**: Proporciona uma maior flexibilidade na escolha da tecnologia de armazenamento de dados, facilitando mudanças e evoluções futuras.
+
+Martin Fowler descreve o Repository como uma coleção de objetos de domínio em memória, medindo a comunicação entre o domínio da aplicação e as camadas de mapeamento de dados. Ele fornece uma visão mais orientada a objetos da camada de persistência e ajuda a alcançar uma separação limpa e uma forma de dependência entre o domínio e as camadas de mapeamento de dados.
+
+Em suma, o padrão Repository permite desacoplar o modelo de domínio do código de acesso a dados, facilitando a manutenção, promovendo a reutilização de código e proporcionando uma estrutura mais organizada para a aplicação.
+
+## Referências
+- [.NET - Apresentando o padrão de projeto Repository](https://www.macoratti.net/11/10/net_pr1.htm)
