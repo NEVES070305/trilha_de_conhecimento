@@ -90,6 +90,14 @@ END
 
 O padrão Repository atua como uma ponte entre o domínio da aplicação e a camada de acesso a dados, proporcionando uma maneira de manipular coleções de objetos de domínio de forma orientada a objetos. Ele permite isolar a lógica de acesso aos dados, separando-a das camadas de apresentação e de negócios da aplicação.
 
+
+Um repositório é essencialmente uma coleção de objetos de domínio em memória, e, com base nisso o padrão Repository permite realizar o isolamento entre a camada de acesso a dados (DAL) de sua aplicação e sua camada de apresentação (UI) e camada de negócios (BLL).
+
+Ao utilizar o padrão Repository, você pode realizar a persistência e a separação de interesses em seu código de acesso a dados visto que ele encapsula a lógica necessária para persistir os objetos do seu domínio na sua fonte de armazenamento de dados.
+
+### Exemplo de Uso
+
+```csharp
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -133,13 +141,6 @@ public class CustomerRepository
         }
     }
 }
-Um repositório é essencialmente uma coleção de objetos de domínio em memória, e, com base nisso o padrão Repository permite realizar o isolamento entre a camada de acesso a dados (DAL) de sua aplicação e sua camada de apresentação (UI) e camada de negócios (BLL).
-
-Ao utilizar o padrão Repository, você pode realizar a persistência e a separação de interesses em seu código de acesso a dados visto que ele encapsula a lógica necessária para persistir os objetos do seu domínio na sua fonte de armazenamento de dados.
-
-### Exemplo de Uso
-
-```csharp
 
 ```
 
