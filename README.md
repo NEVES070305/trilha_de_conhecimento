@@ -1,4 +1,4 @@
-# trilha_de_conhecimento
+# Trilha de conhecimento
 # .NET
 
 # Introdução ao .NET
