@@ -171,3 +171,88 @@ Depois de criar sua imagem personalizada usando um Dockerfile, você pode usar o
 Uma vez que seu aplicativo esteja em um contêiner Docker, você pode implantá-lo em qualquer lugar onde o Docker Engine esteja em execução, seja em sua máquina local, em um servidor local ou na nuvem. Isso oferece uma grande flexibilidade e portabilidade para seus aplicativos, permitindo que você dimensione facilmente de acordo com as demandas do seu negócio.
 
 Em resumo, o Docker é uma ferramenta poderosa para simplificar o processo de desenvolvimento, distribuição e implantação de aplicativos, fornecendo uma maneira consistente e confiável de executar seus aplicativos em qualquer lugar. Com o uso de Dockerfiles e imagens personalizadas, você pode garantir que seu aplicativo funcione de maneira confiável em qualquer ambiente, eliminando o problema do "funciona na minha máquina".
+
+Claro! Aqui está uma explicação sobre como criar um Dockerfile para uma aplicação C# e como executá-la:
+
+### Criando um Dockerfile para uma Aplicação C#
+
+Para criar um Dockerfile para uma aplicação C#, você pode seguir estas etapas, que é um multi-stage Dockerfiles:
+
+### Estágio 1: Definir a imagem base para produção
+
+```Dockerfile
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+WORKDIR /app 
+ENV ASPNETCORE_ENVIROMENT=Development
+```
+Neste estágio:
+- A imagem base `mcr.microsoft.com/dotnet/aspnet:5.0` é usada para fornecer o ambiente de execução ASP.NET Core.
+- Define o diretório de trabalho `/app`.
+- Define a variável de ambiente `ASPNETCORE_ENVIRONMENT` como `Development`.
+
+### Estágio 2: Construir e publicar o código
+
+```Dockerfile
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["YourAppName.csproj", "."]
+RUN dotnet restore "./YourAppName.csproj"
+COPY . .
+WORKDIR "/src/."
+RUN dotnet build "./YourAppName.csproj" -c $BUILD_CONFIGURATION -o /app/build
+```
+Neste estágio:
+- A imagem base `mcr.microsoft.com/dotnet/sdk:5.0` é usada para fornecer o SDK do .NET Core necessário para compilar o código.
+- O código-fonte é copiado para dentro do contêiner.
+- As dependências são restauradas usando o comando `dotnet restore`.
+- O código é compilado usando o comando `dotnet build`.
+- O código compilado é armazenado no diretório `/app/build`.
+
+```Dockerfile
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./YourAppName.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+```
+Neste estágio, uma nova etapa é criada a partir do estágio de construção:
+- O código é publicado usando o comando `dotnet publish`.
+- O código publicado é armazenado no diretório `/app/publish`.
+- O parâmetro `/p:UseAppHost=false` é usado para garantir que o arquivo do host de aplicativo não seja gerado. Isso é útil quando a aplicação está sendo executada em um ambiente de contêiner, onde não é necessário o arquivo do host de aplicativo.
+
+### Estágio 3: Preparar a imagem final para produção
+
+```Dockerfile
+FROM base AS final 
+EXPOSE 80
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "YourAppName.dll"]
+```
+Neste estágio:
+- Uma nova etapa é criada a partir da etapa base.
+- A porta 80 é exposta para que a aplicação possa ser acessada externamente.
+- Define o diretório de trabalho `/app`.
+- Copia os arquivos publicados do estágio de publicação para dentro do contêiner.
+- Define o ponto de entrada para a aplicação como `dotnet ConsultApi.dll`, que é o comando usado para iniciar a aplicação ASP.NET Core.
+- 
+### Executando a Aplicação com Docker
+
+Depois de criar o Dockerfile, você pode construir a imagem Docker executando o seguinte comando no terminal, estando no diretório que contém o Dockerfile e os arquivos da sua aplicação:
+
+```bash
+docker build -t nome-da-sua-imagem .
+```
+
+Após a construção da imagem, você pode executar um contêiner baseado nessa imagem usando o seguinte comando:
+
+```bash
+docker run -d -p 8080:80 --name meu-container nome-da-sua-imagem
+```
+
+Nesse exemplo:
+- `-d`: executa o contêiner em segundo plano (detached mode).
+- `-p 8080:80`: mapeia a porta 8080 do host para a porta 80 do contêiner.
+- `--name meu-container`: atribui o nome "meu-container" ao contêiner.
+- `nome-da-sua-imagem`: é o nome da imagem Docker que você construiu anteriormente.
+
+Depois de executar esses comandos, sua aplicação C# estará em execução em um contêiner Docker e será acessível através da porta 8080 do seu host.
