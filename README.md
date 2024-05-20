@@ -256,3 +256,9 @@ Nesse exemplo:
 - `nome-da-sua-imagem`: é o nome da imagem Docker que você construiu anteriormente.
 
 Depois de executar esses comandos, sua aplicação C# estará em execução em um contêiner Docker e será acessível através da porta 8080 do seu host.
+
+## Referências
+- [Docker: criando e gerenciando containers](https://cursos.alura.com.br/course/docker-criando-gerenciando-containers)
+- [Conhecendo e Instalando o Docker] (https://web.dio.me/course/introducao-e-laboratorio-virtual/learning/78816b6d-a1f4-48fa-b788-0fa0a2aa0aba?back=/track/coding-future-avanade-net-developer&tab=undefined&moduleId=undefined)
+- [Primeiros Passos com o Docker] (https://web.dio.me/course/primeiros-passos-com-o-docker/learning/f97d95bc-2d17-4be6-b1f2-235d97a499ab?back=/track/coding-future-avanade-net-developer&tab=undefined&moduleId=undefined)
+- [Docker essencial para a plataforma .NET] (https://www.udemy.com/course/docker-essencial-para-a-plataforma-net/learn/lecture/13509466?start=0#overview)
